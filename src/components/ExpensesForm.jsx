@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import InputField from "./InputField";
+import Select from "./Select";
 
 const ExpensesForm = ({ setExpenses }) => {
   /*
@@ -29,6 +31,7 @@ const ExpensesForm = ({ setExpenses }) => {
   });
 
   let handleChange = (e) => {
+    // This function is assigning value when any changes happened
     let { name, value } = e.target;
     setExpense((prevState) => {
       return {
@@ -39,6 +42,7 @@ const ExpensesForm = ({ setExpenses }) => {
   };
 
   let validate = (formData) => {
+    // This function validates input field if we submit form without any details these errors will be shown
     const errorsData = {};
     if (!formData.title) {
       errorsData.title = "Title is required!";
@@ -57,13 +61,14 @@ const ExpensesForm = ({ setExpenses }) => {
   };
 
   let handleSubmit = (e) => {
+    //This function has main working while submitting form // ->1
     e.preventDefault();
-    let validateResult = validate(expense);
-    if (Object.keys(validateResult).length) return
-      setExpenses((prevState) => [
-        ...prevState,
-        { ...expense, id: crypto.randomUUID() },
-      ]);
+    let validateResult = validate(expense); // validate function assigning expense as argument to formData
+    if (Object.keys(validateResult).length) return;
+    setExpenses((prevState) => [
+      ...prevState,
+      { ...expense, id: crypto.randomUUID() },
+    ]);
     setExpense({
       title: "",
       color: "",
@@ -80,94 +85,61 @@ const ExpensesForm = ({ setExpenses }) => {
             Add a new product
           </h2>
           <form action="#" onSubmit={handleSubmit}>
-            <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="name"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Product Name
-                </label>
-                <input
-                  type="text"
-                  value={expense.title}
-                  onChange={handleChange}
-                  name="title"
-                  id="title"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Type product name"
-                  required=""
-                />
-                <p className="text-red-400 text-md px-2 ">{errors.title}</p>
-              </div>
-              <div>
-                <label
-                  htmlFor="color"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Color
-                </label>
-                <select
-                  value={expense.color}
-                  onChange={handleChange}
-                  id="color"
-                  name="color"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                >
-                  <option value="" hidden>
-                    Select color
-                  </option>
-                  <option name="white">White</option>
-                  <option name="black">Black</option>
-                  <option name="blue">Blue</option>
-                  <option name="navy-blue">Navy Blue</option>
-                </select>
-                <p className="text-red-400 text-md px-2 ">{errors.color}</p>
-              </div>
+            {" "}
+            {/* -> 1   */}
+            <div v className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+              <InputField
+                id="title"
+                name="title"
+                value={expense.title}
+                onChange={handleChange}
+                error={errors.title}
+                label="Title"
+                placeholder = 'Enter Product Name'
 
-              <div>
-                <label
-                  htmlFor="category"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Category
-                </label>
-                <select
-                  value={expense.category}
-                  onChange={handleChange}
-                  id="category"
-                  name="category"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                >
-                  <option className="hidden">Select category</option>
-                  <option name="TV">TV/Monitors</option>
-                  <option name="PC">PC</option>
-                  <option name="GA">Gaming/Console</option>
-                  <option name="Phones">Phones</option>
-                  <option name="access">Accessories</option>
-                </select>
-                <p className="text-red-400 text-md px-2 ">{errors.category}</p>
-              </div>
+/>
 
-              <div className="w-full">
-                <label
-                  htmlFor="price"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Price
-                </label>
-                <input
-                  value={expense.price}
-                  onChange={handleChange}
-                  type="number"
-                  name="price"
-                  id="price"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="$2999"
-                  required=""
-                />
-                <p className="text-red-400 text-md px-2 ">{errors.price}</p>
-              </div>
+              
+              <Select
+                id="color"
+                options={[
+                  "White",
+                  "Black",
+                  "Blue",
+                  "Navy Blue",
+                ]}
+                name="color"
+                label="color"
+                value={expense.color}
+                onChange={handleChange}
+                error={errors.color}
+              />
+
+              <Select
+                id="category"
+                options={[
+                  "TV/Monitors",
+                  "PC",
+                  "Gaming/Console",
+                  "Phones",
+                  "Accessories",
+                ]}
+                name="category"
+                label="Category"
+                value={expense.category}
+                onChange={handleChange}
+                error={errors.category}
+              />
+
+              <InputField
+                id="price"
+                name="price"
+                value={expense.price}
+                onChange={handleChange}
+                error={errors.price}
+                label='Price'
+                placeholder = 'Price'
+              />
             </div>
             <button
               type="submit"
