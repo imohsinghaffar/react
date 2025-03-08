@@ -8,7 +8,7 @@ const Contact = () => {
   const [expenses, setExpenses] = useState(expenseData)
   return (
     <>
-      <h1 className="text-5xl pt-30 font-bold pb-20 text-center">Contact Us</h1> 
+      <h1 className="text-5xl pt-30 font-bold pb-5 text-center">Contact Us</h1> 
       {/* <form className="max-w-md mx-auto">
         <div className="relative w-full mb-5 group">
           <input

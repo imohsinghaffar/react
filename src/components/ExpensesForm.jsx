@@ -52,19 +52,18 @@ const ExpensesForm = ({ setExpenses }) => {
     if (!formData.price) {
       errorsData.price = "Price is required";
     }
-
-        setErrors(errorsData);
+    setErrors(errorsData);
+    return errorsData;
   };
 
   let handleSubmit = (e) => {
     e.preventDefault();
-let validateResult = validate(expense);
-console.log(validateResult)
-    if(Object.keys(validateResult).length) return
-    setExpenses((prevState) => [
-      ...prevState, 
-      { ...expense, id: crypto.randomUUID() },
-    ]);
+    let validateResult = validate(expense);
+    if (Object.keys(validateResult).length) return
+      setExpenses((prevState) => [
+        ...prevState,
+        { ...expense, id: crypto.randomUUID() },
+      ]);
     setExpense({
       title: "",
       color: "",
