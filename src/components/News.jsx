@@ -43,9 +43,9 @@ const News = () => {
 
   return (
     <>
-      <div className="text-6xl font-bold text-center pt-20">
+      <div className="text-5xl font-bold text-center pt-30 pb-10">
         <h1 className="text-gray-900">Fetching data from API</h1>
-      </div>
+      </div>  
 
       <form className="mt-5 mb-5 max-w-md mx-auto" onSubmit={handleSearchSubmit}>
         <label

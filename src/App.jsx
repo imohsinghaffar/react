@@ -5,6 +5,7 @@ import Home from './components/Home'
 import About from './components/About'
 import News from './components/News'
 import Contact from './components/Contact'
+import ProductTable from './components/ProductTable'
 
 function App() {
 const router = createBrowserRouter([
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
 ])
   return (
     <>
+    
     <RouterProvider router = {router}/>
     </>
   )
