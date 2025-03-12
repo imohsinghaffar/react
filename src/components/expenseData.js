@@ -2,15 +2,15 @@ export default [
     {
       id: crypto.randomUUID(),
       title: "Apple MacBook Pro 17",
-      color: "Silver",
-      category: "Laptop",
+      color: "Black",
+      category: "TV/Monitors",
       price: "4000",
     },
     {
       id: crypto.randomUUID(),
       title: "Microsoft Surface Pro",
       color: "White",
-      category: "Laptop PC",
+      category: "PC",
       price: "1999",
     },
     {

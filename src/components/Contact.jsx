@@ -3,12 +3,20 @@ import ProductTable from "./ProductTable";
 import ExpensesForm from "./ExpensesForm";
 import expenseData from "./expenseData";
 import { useState } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const Contact = () => {
-  const [expenses, setExpenses] = useState(expenseData)
+  const [expenses, setExpenses] = useLocalStorage('expenses', expenseData);
+  const [editingRowId, setEditingRowId] = useState('');  
+  const [expense, setExpense] = useLocalStorage('expense',{
+    title: "",
+    color: "",
+    category: "",
+    price: "",
+  });
   return (
     <>
-      <h1 className="text-5xl pt-30 font-bold pb-5 text-center">Contact Us</h1> 
+      <h1 className="text-5xl pt-30 font-bold pb-5 text-center">Contact Us</h1>
       {/* <form className="max-w-md mx-auto">
         <div className="relative w-full mb-5 group">
           <input
@@ -134,11 +142,22 @@ const Contact = () => {
           Submit
         </button>
       </form>  */}
-      <div>      
-        <ExpensesForm  setExpenses = {setExpenses}/>
-        <ProductTable  expenses = {expenses}/>
+      <div>
+        <ExpensesForm
+          setExpenses={setExpenses}
+          expense={expense}
+          setExpense={setExpense}
+          editingRowId = {editingRowId}
+          setEditingRowId = {setEditingRowId}
+        />
+        <ProductTable
+          expenses={expenses}
+          expense={expense}
+          setExpenses={setExpenses}
+          setExpense={setExpense}
+          setEditingRowId = {setEditingRowId}
+        />
       </div>
-
     </>
   );
 };
